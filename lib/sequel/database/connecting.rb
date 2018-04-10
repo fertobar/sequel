@@ -291,11 +291,11 @@ module Sequel
         result = log_connection_execute(conn, sql)
         puts "sequel_test | valid_connection? log_connection_execute #{result}"
         result
-      rescue Sequel::DatabaseError, *database_error_classes
-        puts "sequel_test  | valid_connection? Sequel::DatabaseError"
+      rescue Sequel::DatabaseError, *database_error_classes => e
+        puts "sequel_test  | valid_connection? Sequel::DatabaseError #{e.inspect}"
         false
       else
-        puts "sequel_test  | valid_connection? true"
+        puts "sequel_test  | valid_connection? ==> true"
         true
       end
     end

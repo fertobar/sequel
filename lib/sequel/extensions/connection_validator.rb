@@ -101,8 +101,10 @@ module Sequel
            !db.valid_connection?(conn)
 
           if pool_type == :sharded_threaded
+            puts "sequel_test  | allocated(a.last).delete(Thread.current)"
             sync{allocated(a.last).delete(Thread.current)}
           else
+            puts "sequel_test  | @allocated.delete(Thread.current)"
             sync{@allocated.delete(Thread.current)}
           end
 
