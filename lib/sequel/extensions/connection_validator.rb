@@ -110,6 +110,7 @@ module Sequel
           raise Retry
         end
       rescue Retry
+        puts "sequel_test  | Retry"
         retry
       end
 

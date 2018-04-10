@@ -286,11 +286,16 @@ module Sequel
     # pool.
     def valid_connection?(conn)
       sql = valid_connection_sql
+      puts "sequel_test | valid_connection? #{sql}"
       begin
-        log_connection_execute(conn, sql)
+        result = log_connection_execute(conn, sql)
+        puts "sequel_test | valid_connection? log_connection_execute #{result}"
+        result
       rescue Sequel::DatabaseError, *database_error_classes
+        puts "sequel_test  | valid_connection? Sequel::DatabaseError"
         false
       else
+        puts "sequel_test  | valid_connection? true"
         true
       end
     end
