@@ -290,13 +290,16 @@ module Sequel
       puts "sequel_test | valid_connection? #{sql}"
       begin
         puts "sequel_test | valid_connection? log_connection_execute start"
-        result = Timeout::timeout(10) {
+        result = Timeout::timeout(4) {
           log_connection_execute(conn, sql)
         }
         puts "sequel_test | valid_connection? log_connection_execute #{result}"
         result
       rescue Sequel::DatabaseError, *database_error_classes => e
         puts "sequel_test  | valid_connection? Sequel::DatabaseError #{e.inspect}"
+        false
+      rescue Exception => e
+        puts "sequel_test  | general_exception #{e.inspect}"
         false
       else
         puts "sequel_test  | valid_connection? ==> true"
