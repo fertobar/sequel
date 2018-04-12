@@ -1,4 +1,5 @@
 # frozen-string-literal: true
+require 'timeout'
 
 module Sequel
   class Database
@@ -288,7 +289,10 @@ module Sequel
       sql = valid_connection_sql
       puts "sequel_test | valid_connection? #{sql}"
       begin
-        result = log_connection_execute(conn, sql)
+        puts "sequel_test | valid_connection? log_connection_execute start"
+        result = Timeout::timeout(10) {
+          log_connection_execute(conn, sql)
+        }
         puts "sequel_test | valid_connection? log_connection_execute #{result}"
         result
       rescue Sequel::DatabaseError, *database_error_classes => e
